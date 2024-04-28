@@ -1,9 +1,9 @@
 import React from 'react';
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import ScheduleMeeting from './components/ScheduleMeeting';
-import Login from './components/Login';
-import Register from './components/Register';
+import ScheduleMeeting from './ScheduleMeeting';
+import Login from './Login';
+import Register from './Register';
 
 //Firebase -
 const App = () => {
