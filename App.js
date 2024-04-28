@@ -1,19 +1,11 @@
-// src/App.js
 import React from 'react';
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import ScheduleMeeting from './components/ScheduleMeeting';
 import Login from './components/Login';
 import Register from './components/Register';
 
-firebase.initializeApp({
-  apiKey: "",
-  authDomain: "",
-  projectId: "",
-  storageBucket: "",
-  messagingSenderId: "",
-  appId: ""
-});
-
+//Firebase -
 const App = () => {
   const user = firebase.auth().currentUser;
 
@@ -24,6 +16,7 @@ const App = () => {
         <div>
           <h2>Welcome, {user.email}</h2>
           <button onClick={() => firebase.auth().signOut()}>Logout</button>
+          <ScheduleMeeting />
         </div>
       ) : (
         <div>
@@ -36,3 +29,4 @@ const App = () => {
 };
 
 export default App;
+
