@@ -1,17 +1,28 @@
-import React from 'react';
+
+import React, { useState } from 'react';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import ScheduleMeeting from './ScheduleMeeting';
 import Login from './Login';
 import Register from './Register';
+import JoinMeeting from './JoinMeeting'; 
+import VideoCall from './VideoCall';
 
-//Firebase -
+// Firebase 
 const App = () => {
+  const [isInMeeting, setIsInMeeting] = useState(false);
+  const [meetingCode, setMeetingCode] = useState('');
+
+  const handleJoinMeeting = (code) => {
+    setMeetingCode(code);
+    setIsInMeeting(true);
+  };
+
   const user = firebase.auth().currentUser;
 
   return (
     <div>
-      <h1>Google Meet App</h1>
+      <h1>MEETING APPLICATION</h1>
       {user ? (
         <div>
           <h2>Welcome, {user.email}</h2>
@@ -19,10 +30,10 @@ const App = () => {
           {!isInMeeting ? (
             <div>
               <ScheduleMeeting />
-              <button onClick={handleJoinMeeting}>Join Meeting</button>
+              <JoinMeeting onJoin={handleJoinMeeting} />
             </div>
           ) : (
-            <VideoCall />
+            <VideoCall meetingCode={meetingCode} />
           )}
         </div>
       ) : (
@@ -36,4 +47,3 @@ const App = () => {
 };
 
 export default App;
-
