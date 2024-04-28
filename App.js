@@ -16,7 +16,14 @@ const App = () => {
         <div>
           <h2>Welcome, {user.email}</h2>
           <button onClick={() => firebase.auth().signOut()}>Logout</button>
-          <ScheduleMeeting />
+          {!isInMeeting ? (
+            <div>
+              <ScheduleMeeting />
+              <button onClick={handleJoinMeeting}>Join Meeting</button>
+            </div>
+          ) : (
+            <VideoCall />
+          )}
         </div>
       ) : (
         <div>
