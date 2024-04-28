@@ -1,29 +1,59 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import SimplePeer from 'simple-peer';
 
-const VideoCall = () => {
-  const videoRef = useRef();
+const MultiPartyVideoCall = ({ meetingCode }) => {
+  const [peers, setPeers] = useState([]);
+  const localVideoRef = useRef();
+  const remoteVideoRefs = useRef([]);
 
   useEffect(() => {
+    const peerConfig = { initiator: false, trickle: false };
+
+   
     navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-      .then(stream => {
-        videoRef.current.srcObject = stream;
+      .then(localStream => {
+        localVideoRef.current.srcObject = localStream;
 
-        const peer = new SimplePeer({ initiator: true, stream });
+       
+        const newPeers = [];
+        const remoteStreams = [];
+       
+        for (let i = 0; i < meetingCode.length; i++) {
+          const peer = new SimplePeer({ ...peerConfig, stream: localStream });
+          remoteVideoRefs.current[i] = React.createRef();
+          peer.on('signal', signal => {
+           
+          });
+          peer.on('stream', remoteStream => {
+            remoteStreams[i] = remoteStream;
+            setPeers([...newPeers, peer]);
+          });
+          newPeers.push(peer);
+        }
 
-        peer.on('signal', data => {
-        });
-
-        peer.on('stream', stream => {
+        // Display remote streams
+        remoteStreams.forEach((stream, index) => {
+          remoteVideoRefs.current[index].current.srcObject = stream;
         });
       })
       .catch(error => {
         console.error('Error accessing media devices:', error);
       });
-  }, []);
 
-  return <video ref={videoRef} autoPlay />;
+    return () => {
+      peers.forEach(peer => peer.destroy());
+    };
+  }, [meetingCode]);
+
+  return (
+    <div>
+      <h2>Multi-Party Video Call</h2>
+      <video ref={localVideoRef} autoPlay muted />
+      {remoteVideoRefs.current.map((ref, index) => (
+        <video key={index} ref={ref} autoPlay />
+      ))}
+    </div>
+  );
 };
 
-export default VideoCall;
-
+export default MultiPartyVideoCall;
