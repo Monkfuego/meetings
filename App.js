@@ -8,7 +8,7 @@ import Register from './Register';
 import JoinMeeting from './JoinMeeting'; 
 import VideoCall from './VideoCall';
 
-// Firebase 
+// Firebase - 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-analytics.js";
 const firebaseConfig = {
@@ -21,7 +21,7 @@ const firebaseConfig = {
     measurementId: "G-6R2E3HGTB2"
   };
 
-  // Initialize Firebase
+  // Initialize Firebase - 
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const App = () => {
@@ -33,6 +33,7 @@ const handleJoinMeeting = (code) => {
     setIsInMeeting(true);
   };
 const user = firebase.auth().currentUser;
+
 
 return (
     <div>
