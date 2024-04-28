@@ -32,14 +32,15 @@ const ScheduleMeeting = () => {
   };
 
   return (
-    <div>
+     <div>
       <h2>Schedule Meeting</h2>
-      <form onSubmit={handleSchedule}>
-        <input type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
-        <input type="datetime-local" placeholder="Start Time" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
-        <input type="datetime-local" placeholder="End Time" value={endTime} onChange={(e) => setEndTime(e.target.value)} />
-        <button type="submit">Schedule</button>
-      </form>
+      <button onClick={handleScheduleMeeting}>Schedule Meeting</button>
+      {meetingCode && (
+        <div>
+          <p>Meeting Code: {meetingCode}</p>
+          <p>Share this code with others to join the meeting</p>
+        </div>
+      )}
     </div>
   );
 };
