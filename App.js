@@ -12,7 +12,7 @@ import VideoCall from './VideoCall';
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-analytics.js";
 const firebaseConfig = {
-    apiKey: "AIzaSyA7xwKYfb4sIL8CdQu6RUZ4cIgx2BRgVvg",
+    apiKey: "",
     authDomain: "meetings-57c01.firebaseapp.com",
     projectId: "meetings-57c01",
     storageBucket: "meetings-57c01.appspot.com",
